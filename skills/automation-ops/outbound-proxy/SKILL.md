@@ -41,6 +41,10 @@ Do NOT use when:
   request is NOT silently sent direct; you get an honest error word. Your
   policy said "leave by the proxy" — a direct fallback would betray it. To
   go direct again, disable the block.
+- **Ambient `NO_PROXY` keeps its standard meaning**: hosts it exempts
+  (typically `127.0.0.1` / localhost) stay direct — that env is your own
+  machine's choice, and proxying loopback is never useful. Every other
+  host obeys the fail-closed rule above.
 
 ## Configure (console or API)
 
