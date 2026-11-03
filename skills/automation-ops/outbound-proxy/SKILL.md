@@ -60,12 +60,21 @@ Or `POST /api/settings` (Bearer WEB_TOKEN):
 URL forms:
 
 - `http://host:port` — plain HTTP proxy;
-- `http://user:pass@host:port` — with proxy authentication (consumed for
-  the request, never echoed anywhere);
 - `https://host:port` — TLS to the proxy itself.
 
 Only `http://` / `https://` proxy URLs are accepted (stdlib transport;
 SOCKS is not supported — said honestly rather than half-working).
+
+**Never embed credentials in the URL.** The settings file carries no
+credentials by design (they would otherwise reach the model-facing
+`settings get`). If your proxy requires authentication, set the
+**`AIDOG_PROXY_AUTH` slot** — console: the credential row on this card —
+with the value `user:pass`. The credential rides the proxy hop only and is
+never echoed anywhere. One honest limitation: stdlib cannot carry that
+credential on an `https://` CONNECT tunnel without delivering it to the
+origin, so an `https://` fetch through an AUTHENTICATED proxy refuses with
+the `auth` word — test with an `http://` target instead (the diagnostics
+below do exactly that).
 
 ## Test
 
@@ -74,7 +83,11 @@ SOCKS is not supported — said honestly rather than half-working).
   `{"ok": true, "ms": 412}` or `{"ok": false, "reason_word": "timeout"}`.
 
 The test fetches an owned endpoint through the proxy with an 8-second
-ceiling; the URL is never echoed.
+ceiling; the URL is never echoed. That endpoint is `https://`, so with
+the `AIDOG_PROXY_AUTH` slot armed the test answers the honest word `auth`
+by design (see the limitation above) — verify those proxies with an
+`http://` target, e.g. `POST /api/outbound_proxy/test {"target":
+"http://example.com/"}` or the curl checks below.
 
 ## Diagnostics (run_bash)
 
@@ -96,7 +109,8 @@ Reading the failure words:
 
 | word | meaning | first fix |
 |---|---|---|
-| `bad_url` | settings URL malformed | scheme must be `http://` or `https://` |
+| `bad_url` | settings URL malformed, or it embeds credentials | scheme must be `http://`/`https://`; auth goes in the `AIDOG_PROXY_AUTH` slot |
+| `auth` | the proxy needs credentials, or the target is `https://` while the auth slot is armed | set `user:pass` in `AIDOG_PROXY_AUTH`; test with an `http://` target |
 | `refused` | nothing accepted on that host:port | is the proxy running? right port? |
 | `timeout` | no answer within the ceiling | firewall/NAT, or proxy overloaded |
 | `tls` | TLS to the proxy failed | you wrote `https://` but the proxy is plain `http://` |
