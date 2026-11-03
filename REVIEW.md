@@ -73,3 +73,4 @@ failure of the process.
 | Skill | Date | Reviewer | Machine gate | Outcome |
 |---|---|---|---|---|
 | (one row per skill, appended on each review) | | | `=== N/N PASS ===` | approved / rejected + reason |
+| outbound-proxy | 2026-11-03 | Aidog agent review (item-8 scope owner-adjudicated, supplemental adjudication §2) | `=== 324/324 PASS ===` | approved — A: lint 0 hits, no obfuscated paths, no credential shapes; B: "Use when …" imperative + three negative triggers, runnable curl/python3 commands, no evergreen empirical claims; C: first-party authorship recorded in SOURCE.md; D: files-not-execution, approval boundaries stated in-body, `requires` (run_bash, http_fetch) both real product tools |
