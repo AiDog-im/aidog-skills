@@ -215,6 +215,15 @@
       "version": "0.1.0",
       "requires": [],
       "install_status": "catalog"
+    },
+    {
+      "slug": "customer-acquisition",
+      "name": "customer-acquisition",
+      "category": "automation-ops",
+      "description": "Use when running an acquisition pipeline: leads from your own signals, a contactability score shown with its arithmetic, one editable draft per lead, reply triage, a daily cap. Not for bought or scraped lists, sends without per-message human approval, bulk cold mail, fake engagement, or promised revenue. The console ships this as the Pipeline view.",
+      "version": "0.1.0",
+      "requires": [],
+      "install_status": "catalog"
     }
   ]
 }
