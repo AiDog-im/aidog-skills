@@ -206,6 +206,15 @@
         "chain_read"
       ],
       "install_status": "bundled"
+    },
+    {
+      "slug": "geo-rank",
+      "name": "geo-rank",
+      "category": "automation-ops",
+      "description": "Use when you want to assess whether a business or site is mentioned or cited in AI-generated answers for customer questions, organize a dated visibility check, compare observations, or draft evidence-based improvements. Not for guaranteed rankings, fabricated mentions or reviews, scraping gated interfaces, paid placement, or publishing changes without approval.",
+      "version": "0.1.0",
+      "requires": [],
+      "install_status": "catalog"
     }
   ]
 }
